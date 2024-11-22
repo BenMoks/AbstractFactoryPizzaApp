@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
+// Main Pizza App
 public class MyPizzaApp {
-
     // Abstract PizzaStore
     public abstract static class PizzaStore {
         protected abstract Pizza createPizza(String item);
@@ -54,6 +54,35 @@ public class MyPizzaApp {
         }
     }
 
+    // Ingredient Interfaces and Implementations
+    public interface Dough {}
+    public static class ThinCrustDough implements Dough {}
+    public static class ThickCrustDough implements Dough {}
+
+    public interface Sauce {}
+    public static class MarinaraSauce implements Sauce {}
+    public static class PlumTomatoSauce implements Sauce {}
+
+    public interface Cheese {}
+    public static class ReggianoCheese implements Cheese {}
+    public static class MozzarellaCheese implements Cheese {}
+
+    public interface Veggies {}
+    public static class Garlic implements Veggies {}
+    public static class Onion implements Veggies {}
+    public static class Mushroom implements Veggies {}
+    public static class RedPepper implements Veggies {}
+    public static class Spinach implements Veggies {}
+    public static class Eggplant implements Veggies {}
+    public static class BlackOlives implements Veggies {}
+
+    public interface Pepperoni {}
+    public static class SlicedPepperoni implements Pepperoni {}
+
+    public interface Clams {}
+    public static class FreshClams implements Clams {}
+    public static class FrozenClams implements Clams {}
+
     // PizzaIngredientFactory Interface
     public interface PizzaIngredientFactory {
         Dough createDough();
@@ -62,6 +91,30 @@ public class MyPizzaApp {
         Veggies[] createVeggies();
         Pepperoni createPepperoni();
         Clams createClam();
+    }
+
+    // NYPizzaIngredientFactory
+    public static class NYPizzaIngredientFactory implements PizzaIngredientFactory {
+        public Dough createDough() { return new ThinCrustDough(); }
+        public Sauce createSauce() { return new MarinaraSauce(); }
+        public Cheese createCheese() { return new ReggianoCheese(); }
+        public Veggies[] createVeggies() {
+            return new Veggies[]{new Garlic(), new Onion(), new Mushroom(), new RedPepper()};
+        }
+        public Pepperoni createPepperoni() { return new SlicedPepperoni(); }
+        public Clams createClam() { return new FreshClams(); }
+    }
+
+    // ChicagoPizzaIngredientFactory
+    public static class ChicagoPizzaIngredientFactory implements PizzaIngredientFactory {
+        public Dough createDough() { return new ThickCrustDough(); }
+        public Sauce createSauce() { return new PlumTomatoSauce(); }
+        public Cheese createCheese() { return new MozzarellaCheese(); }
+        public Veggies[] createVeggies() {
+            return new Veggies[]{new Spinach(), new Eggplant(), new BlackOlives()};
+        }
+        public Pepperoni createPepperoni() { return new SlicedPepperoni(); }
+        public Clams createClam() { return new FrozenClams(); }
     }
 
     // NYPizzaStore
@@ -129,115 +182,6 @@ public class MyPizzaApp {
             veggies = ingredientFactory.createVeggies();
         }
     }
-
-    // NYPizzaIngredientFactory
-    public static class NYPizzaIngredientFactory implements PizzaIngredientFactory {
-        public Dough createDough() {
-            return new ThinCrustDough();
-        }
-
-        public Sauce createSauce() {
-            return new MarinaraSauce();
-        }
-
-        public Cheese createCheese() {
-            return new ReggianoCheese();
-        }
-
-        public Veggies[] createVeggies() {
-            Veggies veggies[] = {new Garlic(), new Onion(), new Mushroom(), new RedPepper()};
-            return veggies;
-        }
-
-        public Pepperoni createPepperoni() {
-            return new SlicedPepperoni();
-        }
-
-        public Clams createClam() {
-            return new FreshClams();
-        }
-    }
-
-    // ChicagoPizzaIngredientFactory
-    public static class ChicagoPizzaIngredientFactory implements PizzaIngredientFactory {
-        public Dough createDough() {
-            return new ThickCrustDough();
-        }
-
-        public Sauce createSauce() {
-            return new PlumTomatoSauce();
-        }
-
-        public Cheese createCheese() {
-            return new MozzarellaCheese();
-        }
-
-        public Veggies[] createVeggies() {
-            Veggies veggies[] = {new Spinach(), new Eggplant(), new BlackOlives()};
-            return veggies;
-        }
-
-        public Pepperoni createPepperoni() {
-            return new SlicedPepperoni();
-        }
-
-        public Clams createClam() {
-            return new FrozenClams();
-        }
-    }
-
-    // Ingredient Interfaces and Implementations
-    public interface Dough {}
-    public static class ThinCrustDough implements Dough {
-        public String toString() {
-            return "Thin Crust Dough";
-        }
-    }
-    public static class ThickCrustDough implements Dough {
-        public String toString() {
-            return "Thick Crust Dough";
-        }
-    }
-
-    public interface Sauce {}
-    public static class MarinaraSauce implements Sauce {
-        public String toString() {
-            return "Marinara Sauce";
-        }
-    }
-    public static class PlumTomatoSauce implements Sauce {
-        public String toString() {
-            return "Plum Tomato Sauce";
-        }
-    }
-
-    public interface Cheese {}
-    public static class ReggianoCheese implements Cheese {
-        public String toString() {
-            return "Reggiano Cheese";
-        }
-    }
-    public static class MozzarellaCheese implements Cheese {
-        public String toString() {
-            return "Mozzarella Cheese";
-        }
-    }
-
-    public interface Veggies {}
-    public static class Garlic implements Veggies {}
-    public static class Onion implements Veggies {}
-    public static class Mushroom implements Veggies {}
-    public static class RedPepper implements Veggies {}
-    public static class Spinach implements Veggies {}
-    public static class Eggplant implements Veggies {}
-    public static class BlackOlives implements Veggies {}
-
-    public interface Pepperoni {}
-    public static class SlicedPepperoni implements Pepperoni {}
-
-    public interface Clams {}
-    public static class FreshClams implements Clams {}
-    public static class FrozenClams implements Clams {}
 
     // Main Method
     public static void main(String[] args) {
